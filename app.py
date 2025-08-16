@@ -9,7 +9,11 @@ from pathlib import Path
 # -----------------------
 @st.cache_resource
 def load_model():
-    return spacy.load("en_core_web_sm")
+    try:
+        return spacy.load("en_core_web_sm")
+    except OSError:
+        st.error("Spacy model not found. Please check requirements.txt")
+        return None
 
 nlp = load_model()
 
